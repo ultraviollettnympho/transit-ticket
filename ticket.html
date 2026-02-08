@@ -2,180 +2,246 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Metro Transit</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            background: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+            background: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
         
-        .phone-container {
-            background: white;
+        .app-container {
             width: 100%;
-            max-width: 428px;
             min-height: 100vh;
+            background: #ffffff;
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.1);
         }
         
         .header {
-            padding: 60px 20px 20px 20px;
-            background: white;
+            padding: 16px 20px 8px 20px;
+            background: #ffffff;
             position: relative;
         }
         
         .close-btn {
             position: absolute;
-            top: 50px;
+            top: 16px;
             right: 20px;
-            width: 30px;
-            height: 30px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
-            color: #666;
+            font-size: 20px;
+            color: #8e8e93;
             cursor: pointer;
+            font-weight: 300;
         }
         
-        .header h1 {
-            font-size: 28px;
+        .header-title {
+            font-size: 17px;
             font-weight: 600;
-            color: #000;
-            margin-bottom: 4px;
+            color: #000000;
+            margin-bottom: 2px;
         }
         
-        .header p {
-            font-size: 14px;
-            color: #666;
+        .header-subtitle {
+            font-size: 13px;
+            color: #8e8e93;
             font-weight: 400;
         }
         
-        .ticket-card {
-            background: white;
-            margin: 20px;
-            border-radius: 12px;
-            padding: 40px 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        .ticket-display {
+            padding: 40px 20px 100px 20px;
             text-align: center;
         }
         
-        .logo-circle {
-            width: 180px;
-            height: 180px;
+        .logo-container {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 32px auto;
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .logo-ring {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             background: #FF6B35;
-            margin: 0 auto 40px auto;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .logo-inner-circle {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             position: relative;
         }
         
-        .logo-inner {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-        
-        .logo-text-go {
-            font-size: 36px;
+        .logo-go {
+            font-size: 42px;
             font-weight: 700;
             color: #7CB342;
-            line-height: 1;
-            margin-bottom: -4px;
-        }
-        
-        .logo-text-to {
-            font-size: 28px;
-            font-weight: 700;
-            color: #7CB342;
-            line-height: 1;
-        }
-        
-        .time-display {
-            font-size: 48px;
-            font-weight: 300;
-            color: #000;
-            margin-bottom: 30px;
+            line-height: 0.9;
             letter-spacing: -1px;
         }
         
+        .logo-to {
+            font-size: 32px;
+            font-weight: 700;
+            color: #7CB342;
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #FF6B35;
+            opacity: 0;
+            animation: pulse 2s ease-out infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.15);
+                opacity: 0;
+            }
+        }
+        
+        .time-display {
+            font-size: 52px;
+            font-weight: 300;
+            color: #000000;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            font-variant-numeric: tabular-nums;
+        }
+        
         .ticket-type {
-            font-size: 18px;
+            font-size: 19px;
             font-weight: 600;
-            color: #000;
+            color: #000000;
             margin-bottom: 4px;
         }
         
         .ticket-location {
-            font-size: 13px;
-            color: #999;
-            margin-bottom: 30px;
-        }
-        
-        .expiration {
             font-size: 14px;
-            color: #666;
-            padding-top: 30px;
-            border-top: 1px solid #e0e0e0;
+            color: #8e8e93;
+            margin-bottom: 32px;
+            font-weight: 400;
         }
         
-        .controls {
+        .expiration-info {
+            font-size: 15px;
+            color: #3c3c43;
+            padding-top: 24px;
+            border-top: 0.5px solid #d1d1d6;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+        
+        .expiration-label {
+            color: #8e8e93;
+            margin-right: 4px;
+        }
+        
+        .bottom-controls {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            max-width: 428px;
-            margin: 0 auto;
-            background: white;
-            padding: 15px 20px 30px 20px;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            background: #ffffff;
+            padding: 12px 20px 32px 20px;
+            border-top: 0.5px solid #d1d1d6;
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            z-index: 100;
         }
         
         button {
             flex: 1;
-            padding: 14px;
+            padding: 14px 20px;
             border: none;
-            border-radius: 8px;
-            font-size: 15px;
+            border-radius: 12px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
+            -webkit-appearance: none;
         }
         
         .btn-activate {
-            background: #FF6B35;
-            color: white;
+            background: #007AFF;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
         }
         
         .btn-activate:active {
-            transform: scale(0.98);
-            opacity: 0.9;
+            transform: scale(0.96);
+            background: #0051D5;
         }
         
         .btn-settings {
-            background: #f0f0f0;
-            color: #333;
+            background: #f2f2f7;
+            color: #007AFF;
+            font-size: 20px;
+            flex: 0 0 50px;
+        }
+        
+        .btn-settings:active {
+            background: #e5e5ea;
+        }
+        
+        .settings-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 998;
+            animation: fadeInOverlay 0.3s ease;
+        }
+        
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .settings-overlay.active {
+            display: block;
         }
         
         .settings-panel {
@@ -184,20 +250,20 @@
             bottom: 0;
             left: 0;
             right: 0;
-            max-width: 428px;
-            margin: 0 auto;
-            background: white;
+            background: #ffffff;
             border-radius: 20px 20px 0 0;
-            padding: 20px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-            max-height: 70vh;
+            padding: 20px 20px 40px 20px;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
+            max-height: 80vh;
             overflow-y: auto;
-            z-index: 1000;
+            z-index: 999;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
         }
         
         .settings-panel.active {
             display: block;
-            animation: slideUp 0.3s ease;
+            animation: slideUp 0.3s ease forwards;
         }
         
         @keyframes slideUp {
@@ -209,256 +275,249 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 0.5px solid #d1d1d6;
         }
         
-        .settings-header h3 {
+        .settings-title {
             font-size: 20px;
             font-weight: 600;
+            color: #000000;
         }
         
         .settings-close {
             font-size: 28px;
-            color: #666;
+            color: #8e8e93;
             cursor: pointer;
-            width: 30px;
-            height: 30px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-weight: 300;
         }
         
-        .setting-item {
+        .setting-group {
             margin-bottom: 20px;
         }
         
-        .setting-item label {
+        .setting-label {
             display: block;
+            font-size: 13px;
+            color: #8e8e93;
             margin-bottom: 8px;
-            color: #333;
-            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             font-weight: 500;
         }
         
-        .setting-item input,
-        .setting-item select {
+        .setting-input,
+        .setting-select {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            background: #f9f9f9;
+            padding: 14px 16px;
+            border: 0.5px solid #d1d1d6;
+            border-radius: 10px;
+            font-size: 17px;
+            background: #ffffff;
+            color: #000000;
+            -webkit-appearance: none;
+            font-family: inherit;
         }
         
-        .setting-item input:focus,
-        .setting-item select:focus {
+        .setting-input:focus,
+        .setting-select:focus {
             outline: none;
-            border-color: #FF6B35;
-            background: white;
+            border-color: #007AFF;
         }
         
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 999;
+        .setting-select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath fill='%238e8e93' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
         }
         
-        .overlay.active {
-            display: block;
+        .apply-btn {
+            width: 100%;
+            margin-top: 16px;
         }
     </style>
 </head>
 <body>
-    <div class="phone-container">
+    <div class="app-container">
         <div class="header">
-            <div class="close-btn" onclick="window.history.back()">×</div>
-            <h1>Metro Transit</h1>
-            <p>Show operator your ticket</p>
+            <div class="close-btn" onclick="closeApp()">×</div>
+            <div class="header-title">Metro Transit</div>
+            <div class="header-subtitle">Show operator your ticket</div>
         </div>
         
-        <div class="ticket-card">
-            <div class="logo-circle">
-                <div class="logo-inner">
-                    <span class="logo-text-go">go</span>
-                    <span class="logo-text-to">to</span>
+        <div class="ticket-display">
+            <div class="logo-container">
+                <div class="logo-ring">
+                    <div class="pulse-ring"></div>
+                    <div class="logo-inner-circle">
+                        <span class="logo-go">go</span>
+                        <span class="logo-to">to</span>
+                    </div>
                 </div>
             </div>
             
-            <div class="time-display" id="currentTime">6:33:23 PM</div>
+            <div class="time-display" id="timeDisplay">6:33:23 PM</div>
             
             <div class="ticket-type" id="ticketType">Adult Non-Rush Hour</div>
             <div class="ticket-location">Minneapolis-St. Paul Metro Area</div>
             
-            <div class="expiration">
-                Expires <span id="expirationDate">Dec 12, 2024</span> at <span id="expirationTime">9:03 PM</span>
+            <div class="expiration-info">
+                <span class="expiration-label">Expires</span>
+                <span id="expirationFull">Dec 12, 2024 at 9:03 PM</span>
             </div>
         </div>
         
-        <div class="controls">
-            <button class="btn-activate" onclick="activateTicket()">Activate New Ticket</button>
-            <button class="btn-settings" onclick="toggleSettings()">⚙️</button>
+        <div class="bottom-controls">
+            <button class="btn-activate" onclick="activateNewTicket()">Activate New Ticket</button>
+            <button class="btn-settings" onclick="toggleSettings()">⚙</button>
         </div>
     </div>
     
-    <div class="overlay" id="overlay" onclick="toggleSettings()"></div>
+    <div class="settings-overlay" id="settingsOverlay" onclick="toggleSettings()"></div>
     
     <div class="settings-panel" id="settingsPanel">
         <div class="settings-header">
-            <h3>Ticket Settings</h3>
+            <div class="settings-title">Ticket Settings</div>
             <div class="settings-close" onclick="toggleSettings()">×</div>
         </div>
         
-        <div class="setting-item">
-            <label>Ticket Type</label>
-            <select id="ticketTypeInput">
+        <div class="setting-group">
+            <label class="setting-label">Ticket Type</label>
+            <select class="setting-select" id="ticketTypeSelect">
                 <option>Adult Non-Rush Hour</option>
                 <option>Adult Rush Hour</option>
                 <option>Youth Non-Rush Hour</option>
                 <option>Youth Rush Hour</option>
-                <option>Senior/Reduced Fare</option>
-                <option>Daily Pass</option>
+                <option>Senior/Medicare</option>
+                <option>Mobility</option>
             </select>
         </div>
         
-        <div class="setting-item">
-            <label>Ticket Duration (minutes)</label>
-            <input type="number" id="durationInput" value="150" min="1" max="1440">
+        <div class="setting-group">
+            <label class="setting-label">Duration (minutes)</label>
+            <input type="number" class="setting-input" id="durationInput" value="150" min="1" max="1440">
         </div>
         
-        <div class="setting-item">
-            <label>Set Activation Time (optional)</label>
-            <input type="time" id="timeOverride">
+        <div class="setting-group">
+            <label class="setting-label">Set Activation Time (Optional)</label>
+            <input type="time" class="setting-input" id="timeInput">
         </div>
         
-        <div class="setting-item">
-            <label>Set Activation Date (optional)</label>
-            <input type="date" id="dateOverride">
+        <div class="setting-group">
+            <label class="setting-label">Set Activation Date (Optional)</label>
+            <input type="date" class="setting-input" id="dateInput">
         </div>
         
-        <button class="btn-activate" style="width: 100%; margin-top: 10px;" onclick="applySettings()">Apply Settings</button>
+        <button class="btn-activate apply-btn" onclick="applySettings()">Apply & Activate</button>
     </div>
 
     <script>
         let activationTime = new Date();
-        let ticketDuration = 150; // minutes
+        let ticketDuration = 150;
         
-        function updateDisplay() {
+        function updateTime() {
             const now = new Date();
             
-            // Format current time (12-hour format with AM/PM)
+            // Format time exactly like Metro Transit: 6:33:23 PM
             let hours = now.getHours();
             let minutes = now.getMinutes();
             let seconds = now.getSeconds();
-            let ampm = hours >= 12 ? 'PM' : 'AM';
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            
             hours = hours % 12;
-            hours = hours ? hours : 12;
+            hours = hours ? hours : 12; // 0 should be 12
             
-            const timeString = `${hours}:${pad(minutes)}:${pad(seconds)} ${ampm}`;
-            document.getElementById('currentTime').textContent = timeString;
+            const timeStr = `${hours}:${pad(minutes)}:${pad(seconds)} ${ampm}`;
+            document.getElementById('timeDisplay').textContent = timeStr;
             
-            // Calculate expiration
-            const expirationDate = new Date(activationTime.getTime() + ticketDuration * 60000);
+            updateExpiration();
+        }
+        
+        function updateExpiration() {
+            const expiration = new Date(activationTime.getTime() + ticketDuration * 60000);
             
-            // Format expiration date
             const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            const expDateStr = `${months[expirationDate.getMonth()]} ${expirationDate.getDate()}, ${expirationDate.getFullYear()}`;
+            const month = months[expiration.getMonth()];
+            const day = expiration.getDate();
+            const year = expiration.getFullYear();
             
-            // Format expiration time
-            let expHours = expirationDate.getHours();
-            let expMinutes = expirationDate.getMinutes();
-            let expAmpm = expHours >= 12 ? 'PM' : 'AM';
+            let expHours = expiration.getHours();
+            let expMinutes = expiration.getMinutes();
+            const expAmpm = expHours >= 12 ? 'PM' : 'AM';
+            
             expHours = expHours % 12;
             expHours = expHours ? expHours : 12;
-            const expTimeStr = `${expHours}:${pad(expMinutes)} ${expAmpm}`;
             
-            document.getElementById('expirationDate').textContent = expDateStr;
-            document.getElementById('expirationTime').textContent = expTimeStr;
+            const expirationStr = `${month} ${day}, ${year} at ${expHours}:${pad(expMinutes)} ${expAmpm}`;
+            document.getElementById('expirationFull').textContent = expirationStr;
         }
         
         function pad(num) {
             return num.toString().padStart(2, '0');
         }
         
-        function activateTicket() {
+        function activateNewTicket() {
             activationTime = new Date();
-            updateDisplay();
+            updateTime();
+            
+            // Add brief animation effect
+            const logo = document.querySelector('.logo-container');
+            logo.style.animation = 'none';
+            setTimeout(() => {
+                logo.style.animation = 'fadeIn 0.5s ease';
+            }, 10);
         }
         
         function toggleSettings() {
             const panel = document.getElementById('settingsPanel');
-            const overlay = document.getElementById('overlay');
+            const overlay = document.getElementById('settingsOverlay');
+            
             panel.classList.toggle('active');
             overlay.classList.toggle('active');
         }
         
         function applySettings() {
-            const ticketType = document.getElementById('ticketTypeInput').value;
+            const type = document.getElementById('ticketTypeSelect').value;
             const duration = parseInt(document.getElementById('durationInput').value);
-            const timeOverride = document.getElementById('timeOverride').value;
-            const dateOverride = document.getElementById('dateOverride').value;
+            const timeValue = document.getElementById('timeInput').value;
+            const dateValue = document.getElementById('dateInput').value;
             
             ticketDuration = duration;
-            document.getElementById('ticketType').textContent = ticketType;
+            document.getElementById('ticketType').textContent = type;
             
-            if (timeOverride || dateOverride) {
-                activationTime = new Date();
+            if (timeValue || dateValue) {
+                activationTime = dateValue ? new Date(dateValue) : new Date();
                 
-                if (dateOverride) {
-                    const [year, month, day] = dateOverride.split('-');
-                    activationTime.setFullYear(parseInt(year), parseInt(month) - 1, parseInt(day));
-                }
-                
-                if (timeOverride) {
-                    const [hours, minutes] = timeOverride.split(':');
+                if (timeValue) {
+                    const [hours, minutes] = timeValue.split(':');
                     activationTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
                 }
             } else {
                 activationTime = new Date();
             }
             
-            updateDisplay();
+            updateTime();
             toggleSettings();
         }
         
+        function closeApp() {
+            if (confirm('Close Metro Transit app?')) {
+                window.history.back();
+            }
+        }
+        
         // Update every second
-        setInterval(updateDisplay, 1000);
+        setInterval(updateTime, 1000);
         
         // Initialize
-        updateDisplay();
+        updateTime();
     </script>
-</body>
-</html>
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Transit Ticket</title>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial;margin:40px;background:#f7f9fc}
-    .ticket{max-width:720px;margin:0 auto;background:#fff;padding:24px;border-radius:8px;box-shadow:0 6px 18px rgba(13,38,59,0.08)}
-    h1{margin-top:0}
-    .meta{display:flex;gap:12px;color:#4b5563}
-  </style>
-</head>
-<body>
-  <main class="ticket">
-    <h1>Transit Ticket</h1>
-    <p class="meta">Passenger: <strong>Jane Doe</strong> &nbsp; | &nbsp; Route: <strong>Blue Line</strong></p>
-    <hr>
-    <section>
-      <h2>Details</h2>
-      <p>Departure: 2026-02-01 09:30</p>
-      <p>Seat: A12</p>
-    </section>
-    <footer style="margin-top:18px;color:#6b7280;font-size:14px">This is a static demo page. Replace contents with your own HTML as needed.</footer>
-  </main>
 </body>
 </html>
