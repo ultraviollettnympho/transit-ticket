@@ -3,6 +3,7 @@
 {  _- ₍ᐢ. .ᐢ₎ ₊˚⊹♡   also, this girlie is currently homeless and if you enjoy this repo + desire more subversive & counterculture repos sooner, i certainly appreciate any $ help available ദ്ദി◝ ⩊ ◜)  = ⊹˚. ♡.𖥔 ݁ ˖ = cashapp: $ultraviollettnympho ૮꒰ྀི⸝⸝> . <⸝⸝꒱ྀིა} ⊹˚. ♡.𖥔 ݁ ˖ -_ }
 
 # Metro Transit Mobile PWA
+# <p style="color:#FFD400;font-weight:900;text-decoration:underline;background:#000;padding:0.12em 0.5em;border-radius:6px;display:inline-block;">here is the link  ᡣ • . • 𐭩 ♡ https://transit-ticket.netlify.app/   ᯓᡣ𐭩</p>
 
 A production-grade, pixel-perfect Progressive Web App (PWA) for modern transit ticket validation. Built with zero dependencies, offline-first architecture, and WCAG 2.1 AA accessibility.
 
