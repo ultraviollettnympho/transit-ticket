@@ -1,3 +1,7 @@
+# <div align="center"><h1 style="font-size:1.9em;font-weight:900;background:#ff69b4;color:#111;padding:0.35em 0.6em;border-radius:10px;display:inline-block;">-₊‧°𐐪♡𐑂°‧₊ THIS BIMBO INSURGENT FINALLY ADDED A NO WORK NEEDED OPTION + NOW YOU CAN SIMPLY CLICK THIS LINK, AND VALIDATE YOUR FARE VIA YOUR WEB BROWSER (˶˃ ᵕ ˂˶) .ᐟ.ᐟ ₊‧°𐐪♡𐑂°‧₊-</h1></div>
+
+{  _- ₍ᐢ. .ᐢ₎ ₊˚⊹♡   also, this girlie is currently homeless and if you enjoy this repo + desire more subversive & counterculture repos sooner, i certainly appreciate any $ help available ദ്ദി◝ ⩊ ◜)  = ⊹˚. ♡.𖥔 ݁ ˖ = cashapp: $ultraviollettnympho ૮꒰ྀི⸝⸝> . <⸝⸝꒱ྀིა} ⊹˚. ♡.𖥔 ݁ ˖ -_ }
+
 # Metro Transit Mobile PWA
 
 A production-grade, pixel-perfect Progressive Web App (PWA) for modern transit ticket validation. Built with zero dependencies, offline-first architecture, and WCAG 2.1 AA accessibility.
