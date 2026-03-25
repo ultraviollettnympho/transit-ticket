@@ -1,0 +1,95 @@
+{
+  "name": "Metro Transit Mobile PWA",
+  "short_name": "Metro Transit",
+  "description": "Modern, pixel-perfect transit ticket validation PWA. Activate tickets, manage pass types, and view expiration — works offline.",
+  "start_url": "/transit-ticket/",
+  "scope": "/transit-ticket/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#007AFF",
+  
+  "icons": [
+    {
+      "src": "/transit-ticket/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/transit-ticket/icons/icon-192-maskable.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/transit-ticket/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/transit-ticket/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  
+  "screenshots": [
+    {
+      "src": "/transit-ticket/screenshots/screenshot-540x720.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/transit-ticket/screenshots/screenshot-1280x720.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  
+  "categories": ["travel", "utilities"],
+  
+  "shortcuts": [
+    {
+      "name": "Activate Ticket",
+      "short_name": "Activate",
+      "description": "Quickly activate a new transit ticket",
+      "url": "/transit-ticket/?action=activate",
+      "icons": [
+        {
+          "src": "/transit-ticket/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "short_name": "Settings",
+      "description": "Configure ticket type and duration",
+      "url": "/transit-ticket/?action=settings",
+      "icons": [
+        {
+          "src": "/transit-ticket/icons/icon-96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  
+  "share_target": {
+    "action": "/transit-ticket/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}
