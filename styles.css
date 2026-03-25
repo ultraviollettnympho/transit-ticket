@@ -569,8 +569,9 @@ main[role="main"] {
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-xl);
+  /* Use success color with dark text to ensure WCAG contrast on small labels */
   background: var(--color-success);
-  color: var(--color-background);
+  color: var(--color-text);
   border-radius: var(--radius-lg);
   min-width: 280px;
   box-shadow: var(--shadow-md);
@@ -759,7 +760,8 @@ footer[role="contentinfo"] {
   background: var(--color-muted-lighter);
   border-top: 1px solid var(--color-border);
   font-size: var(--font-size-sm);
-  color: var(--color-muted);
+  /* Increase footer text contrast against the light background */
+  color: var(--color-text-secondary);
   flex-wrap: wrap;
 }
 
@@ -774,7 +776,8 @@ footer button {
   min-height: var(--touch-target-min);
   padding: var(--space-sm) var(--space-md);
   font-size: var(--font-size-sm);
-  color: var(--color-muted);
+  /* Use a darker text color for sufficient contrast on the light footer background */
+  color: var(--color-text);
   transition: var(--transition-fast);
   border-radius: var(--radius-sm);
 }
