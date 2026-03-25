@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Real-time transit ticket display for Minneapolis-St. Paul Metro Area. Show your operator your active ticket instantly. Offline-capable PWA.">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Metro Transit">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  
+  <title>Metro Transit - Live Ticket Display</title>
+  
+  <!-- Favicon (inline SVG for instant rendering) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect fill='%23FF6B35' width='192' height='192'/%3E%3Ccircle cx='96' cy='96' r='65' fill='%23ffffff'/%3E%3Ctext x='96' y='110' font-size='60' font-weight='bold' fill='%237CB342' text-anchor='middle' font-family='system-ui'%3Eg%3C/text%3E%3C/svg%3E">
+  
+  <!-- Apple Touch Icon (home screen) -->
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header: Status bar with title and close button -->
+    <header class="header" role="banner">
+      <button class="close-btn" id="closeBtn" aria-label="Close Metro Transit app" title="Close app" type="button">×</button>
+      <h1 class="header-title">Metro Transit</h1>
+      <p class="header-subtitle">Show operator your ticket</p>
+    </header>
+
+    <!-- Main: Ticket display area -->
+    <main class="ticket-display" role="main" aria-label="Active transit ticket display">
+      <!-- Logo: Animated activation indicator -->
+      <section class="logo-container animate" aria-live="polite" aria-atomic="true" aria-label="Ticket activation status">
+        <div class="logo-ring" role="img" aria-label="Metro Transit active indicator">
+          <div class="pulse-ring" aria-hidden="true"></div>
+          <div class="logo-inner-circle">
+            <span class="logo-go" aria-hidden="true">go</span>
+            <span class="logo-to" aria-hidden="true">to</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Time Display: Updates every 1 second -->
+      <time class="time-display" id="timeDisplay" aria-live="polite" aria-label="Current time">6:33:23 PM</time>
+      
+      <!-- Ticket Info: Type and location -->
+      <div class="ticket-type" id="ticketType" aria-live="polite" aria-label="Ticket type">Adult Non-Rush Hour</div>
+      <div class="ticket-location">Minneapolis-St. Paul Metro Area</div>
+
+      <!-- Expiration: When ticket expires -->
+      <section class="expiration-info" aria-label="Ticket expiration details">
+        <span class="expiration-label">Expires</span>
+        <time id="expirationFull" aria-live="polite" aria-label="Expiration date and time">Dec 12, 2024 at 9:03 PM</time>
+      </section>
+    </main>
+
+    <!-- Footer: Control buttons (fixed) -->
+    <footer class="bottom-controls" role="contentinfo">
+      <button class="btn-activate" id="activateBtn" type="button" aria-label="Activate new ticket">Activate New Ticket</button>
+      <button class="btn-settings" id="settingsBtn" type="button" aria-label="Open settings panel" title="Settings">⚙</button>
+    </footer>
+  </div>
+
+  <!-- Modal Overlay: Semi-transparent backdrop -->
+  <div class="settings-overlay" id="settingsOverlay" aria-hidden="true" role="presentation"></div>
+
+  <!-- Modal: Settings panel (bottom sheet) -->
+  <aside class="settings-panel" id="settingsPanel" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="settingsPanelTitle">
+    <div class="settings-header">
+      <h2 class="settings-title" id="settingsPanelTitle">Ticket Settings</h2>
+      <button class="settings-close" id="settingsClose" type="button" aria-label="Close settings panel" title="Close">×</button>
+    </div>
+
+    <!-- Settings Form -->
+    <form id="settingsForm" aria-describedby="settingsDescription">
+      <p id="settingsDescription" class="sr-only">Configure your Metro Transit ticket type, duration, and activation time.</p>
+      
+      <!-- Ticket Type Selection -->
+      <div class="setting-group">
+        <label class="setting-label" for="ticketTypeSelect">Ticket Type</label>
+        <select class="setting-select" id="ticketTypeSelect" aria-describedby="ticketTypeHelp">
+          <option>Adult Non-Rush Hour</option>
+          <option>Adult Rush Hour</option>
+          <option>Youth Non-Rush Hour</option>
+          <option>Youth Rush Hour</option>
+          <option>Senior/Medicare</option>
+          <option>Mobility</option>
+        </select>
+        <p id="ticketTypeHelp" class="sr-only">Choose the type of ticket that matches your transit pass.</p>
+      </div>
+
+      <!-- Duration Input -->
+      <div class="setting-group">
+        <label class="setting-label" for="durationInput">Duration (minutes)</label>
+        <input type="number" class="setting-input" id="durationInput" value="150" min="1" max="1440" aria-describedby="durationHelp">
+        <p id="durationHelp" class="sr-only">Enter ticket duration in minutes. Minimum 1, maximum 1440 (24 hours).</p>
+      </div>
+
+      <!-- Time Input (Optional) -->
+      <div class="setting-group">
+        <label class="setting-label" for="timeInput">Set Activation Time (Optional)</label>
+        <input type="time" class="setting-input" id="timeInput" aria-describedby="timeHelp">
+        <p id="timeHelp" class="sr-only">Leave blank to use current time, or set a specific time.</p>
+      </div>
+
+      <!-- Date Input (Optional) -->
+      <div class="setting-group">
+        <label class="setting-label" for="dateInput">Set Activation Date (Optional)</label>
+        <input type="date" class="setting-input" id="dateInput" aria-describedby="dateHelp">
+        <p id="dateHelp" class="sr-only">Leave blank to use today's date, or select a different date.</p>
+      </div>
+
+      <!-- Apply Button -->
+      <button class="btn-activate apply-btn" id="applyBtn" type="button" aria-label="Apply settings and activate ticket">Apply & Activate</button>
+    </form>
+  </aside>
+
+  <!-- Application Script (deferred for performance) -->
+  <script src="app.js" defer></script>
+  
+  <!-- Fallback for users with JavaScript disabled -->
+  <noscript>
+    <p style="padding: 20px; color: #8e8e93; text-align: center; font-family: system-ui;">JavaScript is required to run Metro Transit. Please enable JavaScript in your browser settings.</p>
+  </noscript>
+</body>
+</html>
